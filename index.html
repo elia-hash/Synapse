@@ -243,6 +243,7 @@ button.main{border-radius:999px;padding:11px 18px;font-weight:700;letter-spacing
 .node:hover{box-shadow:none!important;border:none!important;background:none!important}
 
 
+.roof{overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}.roof::-webkit-scrollbar{display:none}.roof>*{flex:none}
 </style></head>
 <body>
 <div id="viewWrap">
@@ -874,6 +875,21 @@ addEventListener('keydown',function(e){
    let i=views.indexOf(curView);
    if(e.key==='ArrowRight'&&i<views.length-1){e.preventDefault();go(views[i+1])}
    if(e.key==='ArrowLeft'&&i>0){e.preventDefault();go(views[i-1])}
+ }
+ if($('moneyUI').style.display!=='none'){
+   let mb=[].slice.call(document.querySelectorAll('#moneyUI .roof button[data-money]'));let mi=0;mb.forEach(function(b,j){if(b.classList.contains('active'))mi=j});
+   if(e.key==='ArrowRight'&&mi<mb.length-1){e.preventDefault();moneyGo(mb[mi+1].dataset.money)}
+   if(e.key==='ArrowLeft'&&mi>0){e.preventDefault();moneyGo(mb[mi-1].dataset.money)}
+ }
+ if($('healthUI').style.display!=='none'){
+   let hb=[].slice.call(document.querySelectorAll('#healthUI .roof button[data-health]'));let hi=0;hb.forEach(function(b,j){if(b.classList.contains('active'))hi=j});
+   if(e.key==='ArrowRight'&&hi<hb.length-1){e.preventDefault();healthGo(hb[hi+1].dataset.health)}
+   if(e.key==='ArrowLeft'&&hi>0){e.preventDefault();healthGo(hb[hi-1].dataset.health)}
+ }
+ if($('architectUI').style.display!=='none'){
+   let sh=$('arch-shells').style.display==='block';
+   if(e.key==='ArrowRight'&&!sh){e.preventDefault();archGo('shells')}
+   if(e.key==='ArrowLeft'&&sh){e.preventDefault();archGo('overview')}
  }
 });
 function mondayOf(d){let x=new Date(d);let day=(x.getDay()+6)%7;x.setDate(x.getDate()-day);x.setHours(0,0,0,0);return x}
